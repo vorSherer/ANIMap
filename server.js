@@ -3,27 +3,29 @@
 // framework
 require('dotenv').config();
 const express = require('express');
-const app = express();
 const cors = require('cors');
-app.use(cors());
 const superagent = require('superagent');
 
 
 // GLOBAL VARIABLES
+const app = express();
 const PORT = process.env.PORT || 3001;
+// UPDATE .env DATABASE_URL with correct USERNAME & PASSWORD
+
+// MIDDLEWARE
+app.use(cors());
+app.use(express.static('./public'));      // serves our static files from public
+// app.use(express.urlencoded({extended:true})); // body parser
 
 
 
+// _ _ _ _ _ _ _ _ _ _ _ TESTING FIELD _ _ _ _ _ _ _ _ _ _ _ //
 
 app.get('/',testIris);
 
 
-
-
-
-
 function testIris(request,response){
-// PLEASE DONT DELETE THIS YET
+// PLEASE DON'T DELETE THIS YET
 // Define our query variables and values that will be used in the query request
 var variables = {
   id: 15125
@@ -63,6 +65,25 @@ query ($id: Int) { # Define which variables will be used in the query (id)
 function callback(){
 
 }
+
+
+// ____________________ Thomas' Jikan Test ____________________//
+// app.get('/tom', testThomas);
+
+// function testThomas( request, response) {
+//   let jikanQuery = `https://api.jikan.moe/v3/search/anime?genre[]=1&genre[]2&rated=pg13`;
+//   superagent.get(jikanQuery)
+//     .then(result => {
+//       console.log(results.body)
+//     }).catch(errorCallback)
+// }
+
+
+// _ _ _ _ _ _ _ _ _ END TESTING FIELD _ _ _ _ _ _ _ _ _ //
+
+
+
+
 
 function errorCallback(err){
   console.log(err);
