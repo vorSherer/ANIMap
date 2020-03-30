@@ -3,17 +3,23 @@
 // framework
 require('dotenv').config();
 const express = require('express');
-const app = express();
 const cors = require('cors');
-app.use(cors());
 const superagent = require('superagent');
 
 
 // GLOBAL VARIABLES
+const app = express();
 const PORT = process.env.PORT || 3001;
+// UPDATE .env DATABASE_URL with correct USERNAME & PASSWORD
+
+// MIDDLEWARE
+app.use(cors());
+app.use(express.static('./public'));      // serves our static files from public
+// app.use(express.urlencoded({extended:true})); // body parser
 
 
 
+// _ _ _ _ _ _ _ _ _ _ _ TESTING FIELD _ _ _ _ _ _ _ _ _ _ _ //
 
 app.get('/',testIris);
 
@@ -73,7 +79,7 @@ function callback(){
 // }
 
 
-
+// _ _ _ _ _ _ _ _ _ END TESTING FIELD _ _ _ _ _ _ _ _ _ //
 
 
 

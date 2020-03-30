@@ -16,6 +16,8 @@ Setup WSL (Windows users) and Microsoft's Virtual Studio Code ("VS Code"), Node.
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
 This application is written using JavaScript (ES6), HTML5, CSS3, and Node.js. 
 We used VS Code and npm to install cors, dotenv, express, and superagent.
+For a CSS Reset file, we used the Meyer Reset, found at http://meyerweb.com/eric/tools/css/reset/ 
+
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
