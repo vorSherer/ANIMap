@@ -41,7 +41,7 @@ VALUES (20,
 'Favorites'
 );
 
-INSERT INTO myANIMap (mal_id,image_url, title, animeType, synopsis, rated, episodes,myRanking ,comments,category) 
+INSERT INTO myANIMap (mal_id,image_url, title, animeType, synopsis, rated, episodes,myRanking ,comments,category,category) 
 VALUES (20, 
 '1527'
 'https://cdn.myanimelist.net/images/anime/7/21319.jpg?s=8f46bd430f4df48caee33c2aee630d84',
