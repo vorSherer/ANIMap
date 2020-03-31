@@ -61,7 +61,7 @@ app.post('/search/results', (request,response) => {
 })
 
 function Anime(obj) {
-  this.id = obj.mal_id;
+  this.mal_id = obj.mal_id;
   this.image_url = obj.image_url;
   this.title = obj.title;
   this.type = obj.type;
