@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Collection</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <%- include('../layout/header.ejs') %>
+    <section class="sec2">
+      
+      <div class="header2"><h4>Search by Title </h4></div>
+      <div >
+      <form action="/search/results" method="post">
+       <div > 
+         <input  type="text" name="search" placeholder="Enter a title" required>
+        </div> 
+       <div><button type="submit">Search Anime Title</button></div> 
+      </form>
+      </div>
+      <script>
+        function myFunction() {
+          var x = document.getElementById("myLinks");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+        
+        </body>
+        </html>
