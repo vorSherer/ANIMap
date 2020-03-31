@@ -3,7 +3,7 @@
 require('dotenv').config();
 const express = require('express');
 const superagent = require('superagent');
-// const pg = require('pg');
+const pg = require('pg');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const cors = require('cors');
@@ -17,10 +17,15 @@ app.use(express.static('./public'));// serves our static files from public
 
 // app.use(methodOverride('_method')); // turn a post or get into a put or delete
 // set up pg
-// const client = new pg.Client(process.env.DATABASE_URL);
-// client.on('error', err => console.error(err));
+const client = new pg.Client(process.env.DATABASE_URL);
+client.on('error', err => console.error(err));
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
+
+
+
+app.post('/viewDetail', showDetail);
+app.post('/add',addAnime);
 
 app.get('/search' , (request,response) => {
   response.render('pages/search.ejs')
@@ -44,11 +49,11 @@ app.get('/home' , (request,response) => {
 
 app.post('/search/results', (request,response) => {
   let search = request.body.search
-  console.log('search', search)
+  // console.log('search', search)
   let url = `https://api.jikan.moe/v3/search/anime?q=${search}&order_by=title&limit=15`
   superagent(url)
     .then(results => {
-      console.log('anime results',results.body.results)
+      // console.log('anime results',results.body.results)
       let anime = results.body.results;
       let animeInfo = anime.map(index => {
         return new Anime(index);
@@ -71,11 +76,60 @@ function Anime(obj) {
 }
 
 
+function showDetail(request, response){
+  // console.log('now in showDetail()');
+  // let {image_url, title, type, rated, id, episodes, synopsis} = request.body;
+  // TODO: obtain id properly
+  let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
+  client.query(sqlCategory)
+    .then(results =>{
+      let categories = results.rows;
+      response.render('pages/viewDetails.ejs',({anime:request.body, myCategories:categories}));
+    })
+}
+
+function addAnime(request, response){
+  console.log('in addAnime');
+
+  let { id, image_url, title, type, synopsis, rated, episodes, myRanking, comments, category} = request.body;
+  let sqlAdd = 'INSERT INTO myAnimap (mal_id, image_url, title, animeType, synopsis, rated, episodes, myRanking, comments, category) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id;';
+  let safeValues = [id, image_url,title,type,synopsis,rated,episodes,myRanking,comments,category]
+
+  client.query(sqlAdd,safeValues)
+    .then(results =>{
+      // TODO: try to return to results page or collection
+      // console.log('added to db)');
+      // console.log(results);
+      // response.redirect('back'); 
+      // let myScript = '<script>window.history.back();</script>'
+      // response.render(myScript);
+      //window.history.back();
+      // response.render('./home.ejs')
+      // response.render('./pages/search.ejs')
+      response.render('./pages//collection.ejs');
+
+  
+    
+    })
+
+  // console.log(request.body);
+  // console.log('image_url',image_url );
+  // console.log('id', id);
+  // console.log('title', title);
+  // console.log('type',type );
+  // console.log('rated', rated);
+  // console.log('episodes', episodes);
+  // console.log('synopsis', synopsis);
+  // console.log('comments', comments);
+  // console.log('myRanking', myRanking);
+  // console.log('category', category);
+}
 
 
-
-
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
-
+// app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+client.connect()
+  .then(() => {
+    app.listen(PORT,() => console.log(`Listening on port ${PORT}`));
+  });
 
 

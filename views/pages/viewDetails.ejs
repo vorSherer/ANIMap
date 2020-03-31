@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Details</title>
+  <script src="./app.js"></script>
+</head>
+<body>
+  <h1>Detail of  <%=anime.title%></h1>
+
+<form action="/add" method="post">
+  <div><img src="<%= anime.image_url %>" /></div> 
+
+  <label> Id:</label> <br>
+  <label name="id"><%=anime.id%></label> <br><br>
+
+  <label> Title:</label> <br>
+  <label name="title" id="title" value="<%= anime.title %>"><%=anime.title%></label> <br><br>
+  
+  <label> Type:</label> <br>
+  <label name="type"><%=anime.type%></label> <br><br>
+
+  <label> Rated:</label> <br>
+  <label name="rated"><%=anime.rated%></label> <br><br>
+
+  <label> Episodes:</label> <br>
+  <label name="episodes"><%=anime.episodes%></label> <br><br>
+
+  <label> Synopsis:</label> <br>
+  <label name="synopsis"><%=anime.synopsis%></label> <br><br>
+
+  <label> Comments:</label> <br>
+  <textarea name="comments" id="comments" cols="100" rows="7"></textarea><br><br>
+  <!-- <input type="text" name="comments"> <br><br> -->
+
+  <label> My ranking:</label> <br>
+  <input type="text" name="myRanking"> <br><br>
+  <!-- <select name="myRanking">
+    <option value="1" name="1">*</option>
+    <option value="2" name="2">**</option>
+    <option value="3" name="3">***</option>
+    <option value="4" name="4">****</option>
+    <option value="5" name="5">******</option>
+  </select>
+  <br><br> -->
+  <label> My category: </label> <br>
+  <input list="category" name="category">
+
+  <datalist id="category">
+    <% myCategories.forEach(category => {%>      
+    <option value ="<%=category.category%>" > <%=category.category%></option>
+    <%})%> 
+  </datalist> <br><br>
+  <button id="return" type="button" name="return" onclick="goBack()">Return</button>
+  <button id="searchbutton" type="submit" name="add">Add to my list!</button>
+
+
+  <input type="hidden" name="image_url" value="<%= anime.image_url %>">
+
+  <input type="hidden" name="id" value="<%= anime.id %>">
+  <input type="hidden" name="title" value="<%= anime.title %>">
+  <input type="hidden" name="type" value="<%= anime.type %>">
+  <input type="hidden" name="rated" value="<%= anime.rated %>">
+  <input type="hidden" name="episodes" value="<%= anime.episodes %>">
+  <input type="hidden" name="synopsis" value="<%= anime.synopsis %>">
+
+</form>
+
+  
+</body>
+</html>
