@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites</title>
+</head>
+<body>
+    
+    <h1>My ANIMap()List</h1>
+
+    <%- include('../layout/header.ejs') %>
+
+    <h2>There are <%= count %> items in your collection</h2>
+
+    <% animeArray.forEach( item => { %>   
+      <form action="/add" method="post">
+       <div><img src=" <%= item.image_url %>" /></div> 
+        <div>  <h2> Anime: <%= item.title %> </h2> </div>
+        <div>  <h3>My ranking: <%= item.myranking %></h3></div>
+  
+       <input type="hidden" name="image_url" value="<%= item.image_url %>" />
+       <input type="hidden" name="title" value="<%= item.title %>" />
+       <input type="hidden" name="type" value="<%= item.type %>" />
+        <input type="hidden" name="rated" value="<%= item.rated %>" />
+         <input type="hidden" name="mal_id" value="<%= item.mal_id %>" />
+         <input type="hidden" name="episodes" value="<%= item.episodes%>" />
+         <input type="hidden" name="synopsis" value="<%= item.synopsis %>" />
+         <input type="hidden" name="rank" value="<%= item.myranking %>" />
+         <input type="hidden" name="category" value="<%= item.category %>" />
+         <input type="hidden" name="comments" value="<%= item.comments %>" />
+
+         <button id="searchbutton" type="submit" name="select">View Details</button>
+       </form>
+       <% }) %>
+  
+</body>
+</html>

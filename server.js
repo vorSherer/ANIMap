@@ -49,11 +49,11 @@ app.get('/home' , (request,response) => {
 
 app.post('/search/results', (request,response) => {
   let search = request.body.search
-  // console.log('search', search)
+  // console.log('search', search)   // REMOVE BEFORE FINISHING
   let url = `https://api.jikan.moe/v3/search/anime?q=${search}&order_by=title&limit=15`
   superagent(url)
     .then(results => {
-      // console.log('anime results',results.body.results)
+      // console.log('anime results',results.body.results)   // REMOVE BEFORE FINISHING
       let anime = results.body.results;
       let animeInfo = anime.map(index => {
         return new Anime(index);
@@ -74,6 +74,27 @@ function Anime(obj) {
   this.rated = obj.rated;
   this.episodes = obj.episodes;
 }
+
+app.get('/collection', (request, response) => {
+  let sql = 'SELECT * FROM myANIMap;';
+  let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
+  client.query(sqlCount)
+    .then(countResults => {
+      console.log('dB row count: ', countResults.rows);   // REMOVE BEFORE FINISHING
+      let rowCount = countResults.rows;
+      client.query(sql)
+        .then(results => {
+          let animeResults = results.rows;
+          console.log('return from dB: ', animeResults);   // REMOVE BEFORE FINISHING
+          // let animeCount = animeResults.length;
+          // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
+          response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
+        })
+    })
+    .catch(error =>{
+      Error(error, response);
+    })
+  })
 
 
 function showDetail(request, response){
@@ -131,5 +152,6 @@ client.connect()
   .then(() => {
     app.listen(PORT,() => console.log(`Listening on port ${PORT}`));
   });
+
 
 
