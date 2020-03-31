@@ -22,7 +22,11 @@ For a CSS Reset file, we used the Meyer Reset, found at http://meyerweb.com/eric
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+TRELLO Board for the project is at https://trello.com/b/b4OSz2Z7/animap
+
 2020-03-29 1830 (6:30 pm) - Basic server build-out.
+2020-03-30 0730 (7:00 am) - Deployed Proof of Life successfully to Heroku.
+
 
 ## Feature #: FEATURE DESCRIPTION
 ### Estimate of time needed to complete
@@ -39,3 +43,9 @@ NN min
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 Shout-outs to Nicholas Carignan who provided technical assistance in getting this project running!
 
+## Assets
+Wireframes:
+[Wireframe image 1 - Main](./images/animap_wireframe1.png)
+[Wireframe image 2 - Details](./images/animap_wireframe2.png)
+[Database Structure drawing](./images/animap_dB-structure.png)
+[Domain Model drawing](./images/domain_model.png)
