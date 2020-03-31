@@ -1,99 +1,81 @@
 'use strict';
-
-// framework
+// libraries
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const superagent = require('superagent');
+// const pg = require('pg');
+// eslint-disable-next-line no-unused-vars
+const ejs = require('ejs');
+const cors = require('cors');
 
-
-// GLOBAL VARIABLES
+// global variables
 const app = express();
 const PORT = process.env.PORT || 3001;
-// UPDATE .env DATABASE_URL with correct USERNAME & PASSWORD
+// middleware
+app.use(cors());// allows everyone to access our information
+app.use(express.static('./public'));// serves our static files from public
 
-// MIDDLEWARE
-app.use(cors());
-app.use(express.static('./public'));      // serves our static files from public
-// app.use(express.urlencoded({extended:true})); // body parser
+// app.use(methodOverride('_method')); // turn a post or get into a put or delete
+// set up pg
+// const client = new pg.Client(process.env.DATABASE_URL);
+// client.on('error', err => console.error(err));
+app.use(express.urlencoded({extended:true}));
+app.set('view engine', 'ejs');
 
+app.get('/search' , (request,response) => {
+  response.render('pages/search.ejs')
+})
 
+app.get('/home' , (request,response) => {
+  let url = `https://api.jikan.moe/v3/search/anime?status=upcoming&limit=18`
+  superagent(url)
+    .then(results => {
 
-// _ _ _ _ _ _ _ _ _ _ _ TESTING FIELD _ _ _ _ _ _ _ _ _ _ _ //
-
-app.get('/',testIris);
-
-
-function testIris(request,response){
-// PLEASE DON'T DELETE THIS YET
-// Define our query variables and values that will be used in the query request
-var variables = {
-  id: 15125
-};
-
-// Here we define our query as a multi-line string
-// Storing it in a separate .graphql/.gql file is also possible
-var query = `
-query ($id: Int) { # Define which variables will be used in the query (id)
-  Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
-    id
-    title {
-      romaji
-      english
-      native
-    }
-  }
-}
-`;
-
-  let apiURL = 'https://graphql.anilist.co';
-  superagent.post(apiURL)
-  // request.post('/user')
-      .set('Content-Type', 'application/json')
-      .send(JSON.stringify({
-        query: query,
-        variables: variables
-    }))
-      .then(results =>{
-        console.log(results.body);
-        response.json(results.body);
+      let anime = results.body.results;
+      let animeInfo = anime.map(index => {
+        return new Anime(index);
       })
-      .catch(errorCallback)
+      response.render('home.ejs', {anime : animeInfo})
+    })
+    .catch(error =>{
+      Error(error, response);
+    });
+})
+
+app.post('/search/results', (request,response) => {
+  let search = request.body.search
+  console.log('search', search)
+  let url = `https://api.jikan.moe/v3/search/anime?q=${search}&order_by=title&limit=15`
+  superagent(url)
+    .then(results => {
+      console.log('anime results',results.body.results)
+      let anime = results.body.results;
+      let animeInfo = anime.map(index => {
+        return new Anime(index);
+      })
+      response.render('pages/showResults.ejs', {anime : animeInfo})
+    })
+    .catch(error =>{
+      Error(error, response);
+    });
+})
+
+function Anime(obj) {
+  this.id = obj.mal_id;
+  this.image_url = obj.image_url;
+  this.title = obj.title;
+  this.type = obj.type;
+  this.synopsis = obj.synopsis;
+  this.rated = obj.rated;
+  this.episodes = obj.episodes;
 }
 
 
-function callback(){
-
-}
 
 
-// ____________________ Thomas' Jikan Test ____________________//
-// app.get('/tom', testThomas);
-
-// function testThomas( request, response) {
-//   let jikanQuery = `https://api.jikan.moe/v3/search/anime?genre[]=1&genre[]2&rated=pg13`;
-//   superagent.get(jikanQuery)
-//     .then(result => {
-//       console.log(results.body)
-//     }).catch(errorCallback)
-// }
-
-
-// _ _ _ _ _ _ _ _ _ END TESTING FIELD _ _ _ _ _ _ _ _ _ //
-
-
-
-
-
-function errorCallback(err){
-  console.log(err);
-}
 
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 
 
-app.use(function (err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).send('Something broke!')
-});
+

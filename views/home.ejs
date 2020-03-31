@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <%- include('./layout/header.ejs') %>
+  <% anime.forEach( show => { %>   
+    <form action="/add" method="post">
+     <div><img src=" <%= show.image_url %>" /></div> 
+      <div>  <h2> title :<%= show.title %> </h2> </div>
+      <!-- <div> <h4> type :<%= show.type %></h4> </div>
+      <div > <h4>rated:<%= show.rated %></h4> </div>
+      <div > <h4>mal_id :<%= show.id %></h4> </div>
+      <div > <h4 > ep :<%= show.episodes %></h4> </div>
+      <div > 
+       <p>description : <%= show.synopsis %> </p> -->
+     <!-- </div> -->
+
+     <input type="hidden" name="image_url" value="<%= show.image_url %>" />
+     <input type="hidden" name="title" value="<%= show.title %>" />
+     <input type="hidden" name="type" value="<%= show.type %>" />
+      <input type="hidden" name="rated" value="<%= show.rated %>" />
+       <input type="hidden" name="id" value="<%= show.id %>" />
+       <input type="hidden" name="episodes" value="<%= show.episodes%>" />
+       <input type="hidden" name="synopsis" value="<%= show.synopsis %>" />
+       <button id="searchbutton" type="submit" name="select">View Details</button>
+     </form>
+     <% }) %>
+
+</body>
+</html>
