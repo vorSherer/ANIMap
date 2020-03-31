@@ -22,6 +22,10 @@ app.use(express.static('./public'));// serves our static files from public
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 
+
+
+app.post('/viewDetail', showDetail);
+
 app.get('/search' , (request,response) => {
   response.render('pages/search.ejs')
 })
@@ -71,7 +75,18 @@ function Anime(obj) {
 }
 
 
-
+function showDetail(request, response){
+  console.log('now in showDetail()');
+  let {image_url, title, type, rated, id, episodes, synopsis} = request.body;
+  response.render('pages/viewDetails.ejs',{anime:request.body});
+  // console.log('image_url',image_url);
+  // console.log('title',title);
+  // console.log('type',type);
+  // console.log('rated',rated);
+  // console.log('id',id);
+  // console.log('episodes',episodes);
+  // console.log('synopsis',synopsis);
+}
 
 
 
