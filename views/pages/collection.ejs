@@ -16,6 +16,8 @@
     <% animeArray.forEach( item => { %>   
       <form action="/edit" method="post">
        <div><img src=" <%= item.image_url %>" /></div> 
+       <!-- TODO: DELETE showing BD id -->
+       <div>  <h2> DB id: <%= item.id %> </h2> </div>  
         <div>  <h2> Anime: <%= item.title %> </h2> </div>
         <div>  <h3>My ranking: <%= item.myranking %></h3></div>
   

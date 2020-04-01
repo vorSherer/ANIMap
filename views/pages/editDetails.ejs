@@ -41,7 +41,7 @@
         
           <label> My ranking:</label> <br> 
           <select name="myRanking">
-            <%for (let i =1; i<11; i++) {%>
+            <%for (let i =10; i>0; i--) {%>
               <%if (i==anime.myranking) {%>
                 <option value="<%=i%>" name="<%=i%>" selected><%=i%></option>
                 <%}
@@ -65,12 +65,18 @@
 
 
           <button id="return" type="button" name="return" onclick="goBack()">Return</button>
-          <button id="searchbutton" type="submit" name="add">Update</button>
+
+          <button id="updateButton" type="submit" name="add">Update</button>
         
           <input type="hidden" name="id" value="<%= anime.id %>" />
         
         </form>
 
+     
+        <form action="/delete" method="POST">
+          <input type="hidden" name="id" value="<%= anime.id %>" />
+          <button type="submit">Delete</button>
+        </form>
 
       </div>
       <script>

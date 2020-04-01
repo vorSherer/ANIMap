@@ -7,6 +7,7 @@ const pg = require('pg');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const cors = require('cors');
+const methodOverride = require('method-override');
 
 // global variables
 const app = express();
@@ -15,7 +16,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());// allows everyone to access our information
 app.use(express.static('./public'));// serves our static files from public
 
-// app.use(methodOverride('_method')); // turn a post or get into a put or delete
+app.use(methodOverride('_method')); // turn a post or get into a put or delete
 // set up pg
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.error(err));
@@ -24,16 +25,27 @@ app.set('view engine', 'ejs');
 
 
 app.get('/home' , displayUpcoming);
+app.get('/search' ,doSearch);
 app.post('/search/results', showResults);
 app.get('/collection', viewCollection);
 app.post('/viewDetail', viewDetail);
 app.post('/add',addAnime);
 app.post('/edit', editAime);
 app.post('/update', updateAnime);
+app.post('/delete', deleteAnime);
 
-app.get('/search' , (request,response) => {
+
+
+// app.get('/edit/:id', editAnime);
+// // edit?id=9
+// function editAnime(request, response){
+//   console.log('in editAnime');
+// }
+
+
+function doSearch (request,response) {
   response.render('pages/search.ejs')
-})
+}
 
 
 function displayUpcoming(request, response){
@@ -171,8 +183,6 @@ function editAime(request, response){
 function updateAnime(request,response){
   let {id, synopsis, comments, myRanking, category } = request.body;
 
-  // console.log('synopsis',synopsis)
-
   let sqlUpd = 'UPDATE myANIMap SET synopsis=$1, comments=$2, myRanking=$3, category=$4 WHERE id=$5;';
   let safeValues = [synopsis, comments, myRanking, category, id];
   client.query(sqlUpd,safeValues)
@@ -184,10 +194,21 @@ function updateAnime(request,response){
     })
 }
 
+function deleteAnime(request, response){
+  let {id} = request.body
+  let sql = 'DELETE FROM myANIMap WHERE id=$1;';
+  let safeValues = [id];
+  client.query(sql,safeValues)
+    .then(results =>{
+      viewCollection(request, response);
+    })
+    .catch(error =>{
+      Error(error, response);
+    })
+}
 
 
 
-// app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 client.connect()
   .then(() => {
     app.listen(PORT,() => console.log(`Listening on port ${PORT}`));
