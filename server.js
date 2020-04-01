@@ -77,13 +77,13 @@ function showResults(request, response){
 }
 
 function Anime(obj) {
-  this.mal_id = obj.mal_id; // TODO: decifde if this value es “id” or “mal_id”
-  this.image_url = obj.image_url;
-  this.title = obj.title;
-  this.type = obj.type;
-  this.synopsis = obj.synopsis;
-  this.rated = obj.rated;
-  this.episodes = obj.episodes;
+  this.mal_id = obj.mal_id ? obj.mal_id : 'No id provided.'; // TODO: decifde if this value es “id” or “mal_id”
+  this.image_url = obj.image_url ? obj.image_url : 'No image available.';
+  this.title = obj.title ? obj.title : 'No title provided.';
+  this.type = obj.type ? obj.type : 'No type provided.';
+  this.synopsis = obj.synopsis ? obj.synopsis : 'Synopsis returned empty.';
+  this.rated = obj.rated ? obj.rated : 'CAUTION: Not Rated!';
+  this.episodes = obj.episodes ? obj.episodes : 'Single film or no episode information.';
 }
 
 // app.get('/collection', (request, response) => {
@@ -152,9 +152,10 @@ function viewCollection(request, response) {
           // let animeCount = animeResults.length;
           // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
+        }).catch(error =>{
+          Error(error, response);
         })
-    })
-    .catch(error =>{
+    }).catch(error =>{
       Error(error, response);
     })
 }
