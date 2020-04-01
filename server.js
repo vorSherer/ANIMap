@@ -28,6 +28,7 @@ app.post('/search/results', showResults);
 app.get('/collection', viewCollection);
 app.post('/viewDetail', viewDetail);
 app.post('/add',addAnime);
+app.post('/edit', editAime);
 
 app.get('/search' , (request,response) => {
   response.render('pages/search.ejs')
@@ -136,12 +137,12 @@ function viewCollection(request, response) {
   let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
   client.query(sqlCount)
     .then(countResults => {
-      console.log('dB row count: ', countResults.rows);   // REMOVE BEFORE FINISHING
+      // console.log('dB row count: ', countResults.rows);   // REMOVE BEFORE FINISHING
       let rowCount = countResults.rows;
       client.query(sql)
         .then(results => {
           let animeResults = results.rows;
-          console.log('return from dB: ', animeResults);   // REMOVE BEFORE FINISHING
+          // console.log('return from dB: ', animeResults);   // REMOVE BEFORE FINISHING
           // let animeCount = animeResults.length;
           // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
@@ -162,6 +163,20 @@ function viewCollection(request, response) {
 // console.log('comments', comments);
 // console.log('myRanking', myRanking);
 // console.log('category', category);
+
+
+function editAime(request, response){
+  console.log(request.body);
+  let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
+  client.query(sqlCategory)
+    .then(results =>{
+      let categories = results.rows;
+      response.render('pages/editDetails.ejs',({anime:request.body, myCategories:categories}));
+    })
+    .catch(error =>{
+      Error(error, response);
+    })
+}
 
 // app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 client.connect()
