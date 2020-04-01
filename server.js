@@ -86,26 +86,26 @@ function Anime(obj) {
   this.episodes = obj.episodes;
 }
 
-app.get('/collection', (request, response) => {
-  let sql = 'SELECT * FROM myANIMap;';
-  let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
-  client.query(sqlCount)
-    .then(countResults => {
-      console.log('dB row count: ', countResults.rows); // REMOVE BEFORE FINISHING
-      let rowCount = countResults.rows;
-      client.query(sql)
-        .then(results => {
-          let animeResults = results.rows;
-          console.log('return from dB: ', animeResults); // REMOVE BEFORE FINISHING
-          // let animeCount = animeResults.length;
-          // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
-          response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
-        })
-    })
-    .catch(error =>{
-      Error(error, response);
-    })
-})
+// app.get('/collection', (request, response) => {
+//   let sql = 'SELECT * FROM myANIMap;';
+//   let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
+//   client.query(sqlCount)
+//     .then(countResults => {
+//       console.log('dB row count: ', countResults.rows); // REMOVE BEFORE FINISHING
+//       let rowCount = countResults.rows;
+//       client.query(sql)
+//         .then(results => {
+//           let animeResults = results.rows;
+//           console.log('return from dB: ', animeResults); // REMOVE BEFORE FINISHING
+//           // let animeCount = animeResults.length;
+//           // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
+//           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
+//         })
+//     })
+//     .catch(error =>{
+//       Error(error, response);
+//     })
+// })
 
 
 function viewDetail(request, response){
