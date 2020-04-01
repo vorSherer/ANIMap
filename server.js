@@ -29,6 +29,7 @@ app.get('/collection', viewCollection);
 app.post('/viewDetail', viewDetail);
 app.post('/add',addAnime);
 app.post('/edit', editAime);
+app.post('/update', updateAnime);
 
 app.get('/search' , (request,response) => {
   response.render('pages/search.ejs')
@@ -120,7 +121,7 @@ function viewDetail(request, response){
 function addAnime(request, response){
   let { id, image_url, title, type, synopsis, rated, episodes, myRanking, comments, category} = request.body;
   let sqlAdd = 'INSERT INTO myAnimap (mal_id, image_url, title, animeType, synopsis, rated, episodes, myRanking, comments, category) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id;';
-  let safeValues = [id, image_url,title,type,synopsis,rated,episodes,myRanking,comments,category]
+  let safeValues = [id, image_url,title,type,synopsis,rated,episodes,myRanking,comments,category];
   client.query(sqlAdd,safeValues)
     .then(results =>{
       viewCollection(request, response);
@@ -152,21 +153,9 @@ function viewCollection(request, response) {
       Error(error, response);
     })
 }
-// console.log(request.body);
-// console.log('image_url',image_url );
-// console.log('id', id);
-// console.log('title', title);
-// console.log('type',type );
-// console.log('rated', rated);
-// console.log('episodes', episodes);
-// console.log('synopsis', synopsis);
-// console.log('comments', comments);
-// console.log('myRanking', myRanking);
-// console.log('category', category);
-
 
 function editAime(request, response){
-  console.log(request.body);
+  // console.log(request.body);
   let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
   client.query(sqlCategory)
     .then(results =>{
@@ -177,6 +166,26 @@ function editAime(request, response){
       Error(error, response);
     })
 }
+
+
+function updateAnime(request,response){
+  let {id, synopsis, comments, myRanking, category } = request.body;
+
+  // console.log('synopsis',synopsis)
+
+  let sqlUpd = 'UPDATE myANIMap SET synopsis=$1, comments=$2, myRanking=$3, category=$4 WHERE id=$5;';
+  let safeValues = [synopsis, comments, myRanking, category, id];
+  client.query(sqlUpd,safeValues)
+    .then(results =>{
+      viewCollection(request, response);
+    })
+    .catch(error =>{
+      Error(error, response);
+    })
+}
+
+
+
 
 // app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 client.connect()

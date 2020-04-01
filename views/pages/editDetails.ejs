@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniMap()</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <%- include('../layout/header.ejs') %>
+    <section class="sec2">
+      
+      <div class="header2"><h4>Edit Anime </h4></div>
+      <div >
+   
+        
+        <form action="/update" method="post">
+          <div><img src="<%= anime.image_url %>" /></div> 
+        
+          <label> Id:</label> <br>
+          <label name="mal_id"><%=anime.id%></label> <br><br>
+        
+          <label> Title:</label> <br>
+          <label name="title" id="title" value="<%= anime.title %>"><%=anime.title%></label> <br><br>
+          
+          <label> Type:</label> <br>
+          <label name="type"><%=anime.type%></label> <br><br>
+        
+          <label> Rated:</label> <br>
+          <label name="rated"><%=anime.rated%></label> <br><br>
+        
+          <label> Episodes:</label> <br>
+          <label name="episodes"><%=anime.episodes%></label> <br><br>
+        
+          <label> Synopsis:</label> <br>
+          <textarea name="synopsis" id="synopsis" cols="100" rows="7" value="<%=anime.synopsis%>"> <%=anime.synopsis%> </textarea><br><br>
+        
+          <label> Comments:</label> <br>
+          <textarea name="comments" id="comments" cols="100" rows="7" value="<%=anime.comments%>"> <%=anime.comments%> </textarea><br><br>
+        
+          <label> My ranking:</label> <br> 
+          <select name="myRanking">
+            <%for (let i =1; i<11; i++) {%>
+              <%if (i==anime.myranking) {%>
+                <option value="<%=i%>" name="<%=i%>" selected><%=i%></option>
+                <%}
+                else { %>
+                <option value="<%=i%>" name="<%=i%>"><%=i%></option>
+                <%}%>
+            <%}%>
+          </select>
+          
+          <br><br>
+          
+          <label> My category: </label> <br> <%=anime.category%>
+          <!-- <input list="category" name="category" value="<%=anime.category%>"> -->
+          <input type="text" list="category" id="category" name="category" value="<%=anime.category%>"/> 
+          
+          <datalist id="category">
+            <% myCategories.forEach(category => {%>      
+                <option value ="<%=category.category%>" > <%=category.category%></option>
+            <%})%> 
+          </datalist> <br><br>
+
+
+          <button id="return" type="button" name="return" onclick="goBack()">Return</button>
+          <button id="searchbutton" type="submit" name="add">Update</button>
+        
+          <input type="hidden" name="id" value="<%= anime.id %>" />
+        
+        </form>
+
+
+      </div>
+      <script>
+        function myFunction() {
+          var x = document.getElementById("myLinks");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+        <script src="./app.js"></script>
+        </body>
+        </html>
