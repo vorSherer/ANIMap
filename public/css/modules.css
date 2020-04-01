@@ -1,0 +1,63 @@
+.details {
+  color:rgb(230, 216, 22);
+  border: rgb(255, 238, 0) ridge 2px ;
+  background-color: rgba(22, 22, 22, 0.644);
+  margin-left: 7%;
+  margin-right: 7%;
+  height:60px;
+  line-height:50px;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+
+
+
+
+
+
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.topnav #myLinks {
+  display: none;
+}
+
+.topnav a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+}
+
+.topnav a.icon {
+  background: rgb(255, 217, 3);
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+ 
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.678);
+  color: white;
+  height: 55px;
+  border-bottom: lawngreen solid 3px;
+}
+.active h1 {
+  font-size: 30pt;
+  margin-left:3rem;
+}

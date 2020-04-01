@@ -1,10 +1,197 @@
+#welcomePage{
+  height:100%;
+  background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700138782-1200x682.jpg" );
+  background-position-x: -25rem;
+  background-repeat: no-repeat;
+background-size: cover;
+  width:100%;
+  height:100vh;
+  margin:auto;
+  align-self: center;
+  border: solid 3px lawngreen;
+ 
+ 
+}
 #introText {
   
-  background-color:unset ;
-  color:rgb(255, 254, 254);
+  /* background-color:rgba(0, 0, 0, 0.76) ; */
+  color:rgb(255, 196, 0);
   text-align: center;
-  margin:250px;
-  font-size: 50pt;
+  font-family: 'Special Elite', cursive;
+  font-size: 30pt;
   font-style: oblique;
+  margin-top: 45%;
+}
+
+#introText h1{
+  background-color:rgba(0, 0, 0, 0.445) ;
   
+}
+
+#introText button {
+  width:70%;
+  height:30px;
+  background-color:lawngreen;
+  border: solid 2px black;
+}
+#homepage {
+
+  background-image: url("https://images2.alphacoders.com/564/564835.jpg" ); 
+  /* background-position-x: rem; */
+  /* background-repeat: no-repeat;
+background-size: cover; */
+   width:100%;
+  height:100%;
+  margin:auto;
+  align-self: center;
+  border: solid 3px lawngreen;
+ 
+ 
+}
+
+.homepageText {
+/* border-bottom: solid 5px orange; */
+/* margin-top:2rem; */
+margin-bottom:5rem;
+height:50px;
+}
+.homepageText h1 {
+  font-size: 30pt;
+  margin-left:3rem;
+  color: white;
+  
+}
+
+.homePageImage {
+  border:  rgb(252, 214, 0)  6px;
+  border-style: groove;
+  margin-left:20%;
+  margin-right:20%;
+  height:350px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.homePageImage img {
+  width:100%;
+  height: 100%;
+}
+
+.homePageTitle {
+  color:rgb(230, 216, 22);
+  border: rgb(255, 238, 0) ridge 2px ;
+  background-color: rgba(22, 22, 22, 0.644);
+  margin-left: 7%;
+  margin-right: 7%;
+  height:60px;
+  line-height:50px;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.homePageTitle h2 {
+font-size: 20pt;
+
+}
+
+
+.searchbutton{
+  margin-left:35%;
+  width:130px;
+  height:30px;
+  background-color: lawngreen;
+  margin-bottom: 1rem;
+  border:solid 2px black;
+}
+
+
+
+
+#searchPage {
+  background-image: url("http://eskipaper.com/images/night-sky-wallpaper-17.jpg" );
+  background-position-x: -25rem;
+  background-repeat: no-repeat;
+background-size: cover;
+  width:100%;
+  height:100vh;
+  margin:auto;
+  align-self: center;
+  /* border: solid 3px lawngreen; */
+}
+
+#searchBlock {
+  margin-left:15%;
+  margin-right:15%;
+  margin-top: 30%;
+}
+#searchIntro {
+  color:white;
+  font-size: 36pt;
+ 
+margin-bottom: 2rem;
+
+}
+/* #searchEntry{
+  height:70px;
+} */
+#searchEntry input{
+  border: rgb(255, 238, 0) ridge 4px ;
+  width:100%;
+  height:50px;
+  margin-bottom: 2rem;
+  font-size: 26pt;
+}
+
+#searchButton button {
+  background-color: lawngreen;
+  border:solid 3px black;
+  width:100%;
+  height:35px;
+  font-size: 16pt;
+
+}
+
+
+
+
+#searchResultsPage {
+ 
+  background-image: url("https://images5.alphacoders.com/530/530476.jpg" ); 
+  /* background-position-x: rem;
+  background-repeat: no-repeat; */
+background-size: cover; 
+   width:100%;
+  height:100%;
+  margin:auto;
+  align-self: center;
+  /* border: solid 3px lawngreen; */
+}
+
+
+
+#detailsPage {
+ 
+  background-image: url("https://c4.wallpaperflare.com/wallpaper/132/983/716/fantasy-art-trees-chair-clouds-wallpaper-preview.jpg" ); 
+  /* background-position-x: rem;
+  background-repeat: no-repeat; */
+background-size: cover; 
+   width:100%;
+  height:100%;
+  margin:auto;
+  align-self: center;
+  /* border: solid 3px lawngreen; */
+}
+
+
+#synopsisdetails {
+  color:rgb(230, 216, 22);
+  border: rgb(255, 238, 0) ridge 2px ;
+  background-color: rgba(22, 22, 22, 0.644);
+  margin-left: 7%;
+  margin-right: 7%;
+  height:150px;
+  line-height:30px;
+  text-align: center;
+  overflow: scroll;
+  margin-bottom: 1rem;
 }
