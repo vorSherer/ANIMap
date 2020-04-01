@@ -13,6 +13,11 @@
 
     <h2>There are <%= count %> items in your collection</h2>
 
+    Order by
+    <section name="orderBy" id="orderBy">
+      <option name="myranking" value="myranking" id="myranking">My Randing</option>
+    </section>
+
     <% animeArray.forEach( item => { %>   
       <form action="/edit" method="post">
        <div><img src=" <%= item.image_url %>" /></div> 
