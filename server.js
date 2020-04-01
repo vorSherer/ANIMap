@@ -30,7 +30,7 @@ app.post('/search/results', showResults);
 app.get('/collection', viewCollection);
 app.post('/viewDetail', viewDetail);
 app.post('/add',addAnime);
-app.post('/edit', editAime);
+app.post('/edit', editAnime);
 app.post('/update', updateAnime);
 app.post('/delete', deleteAnime);
 
@@ -166,7 +166,7 @@ function viewCollection(request, response) {
     })
 }
 
-function editAime(request, response){
+function editAnime(request, response){
   // console.log(request.body);
   let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
   client.query(sqlCategory)
