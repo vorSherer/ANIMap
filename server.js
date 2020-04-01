@@ -86,32 +86,31 @@ function Anime(obj) {
   this.episodes = obj.episodes;
 }
 
-app.get('/collection', (request, response) => {
-  let sql = 'SELECT * FROM myANIMap;';
-  let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
-  client.query(sqlCount)
-    .then(countResults => {
-      console.log('dB row count: ', countResults.rows); // REMOVE BEFORE FINISHING
-      let rowCount = countResults.rows;
-      client.query(sql)
-        .then(results => {
-          let animeResults = results.rows;
-          console.log('return from dB: ', animeResults); // REMOVE BEFORE FINISHING
-          // let animeCount = animeResults.length;
-          // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
-          response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
-        })
-    })
-    .catch(error =>{
-      Error(error, response);
-    })
-})
+// iris: i don't know why we have this route duplicated. i'm going to comment to see id we need it
+// app.get('/collection', (request, response) => {
+  
+//   let sql = 'SELECT * FROM myANIMap;';
+//   let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
+//   client.query(sqlCount)
+//     .then(countResults => {
+//       console.log('dB row count: ', countResults.rows); // REMOVE BEFORE FINISHING
+//       let rowCount = countResults.rows;
+//       client.query(sql)
+//         .then(results => {
+//           let animeResults = results.rows;
+//           console.log('return from dB: ', animeResults); // REMOVE BEFORE FINISHING
+//           // let animeCount = animeResults.length;
+//           // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
+//           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
+//         })
+//     })
+//     .catch(error =>{
+//       Error(error, response);
+//     })
+// })
 
 
 function viewDetail(request, response){
-  // console.log('now in viewDetail()');
-  // let {image_url, title, type, rated, id, episodes, synopsis} = request.body;
-  // TODO: obtain id properly
   let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
   client.query(sqlCategory)
     .then(results =>{
@@ -139,18 +138,24 @@ function addAnime(request, response){
 
 
 function viewCollection(request, response) {
-  let sql = 'SELECT * FROM myANIMap;';
+  let orderBy = request.query.orderBy;
+  let sqlOrderBy = '';
+  console.log('orderBy',orderBy);
+  if (orderBy !== undefined) {
+    sqlOrderBy = 'SELECT * FROM myANIMap ORDER BY ' + orderBy + ';';
+  }
+  else
+  {
+    sqlOrderBy = 'SELECT * FROM myANIMap;';
+  }
+
   let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
   client.query(sqlCount)
     .then(countResults => {
-      // console.log('dB row count: ', countResults.rows);   // REMOVE BEFORE FINISHING
       let rowCount = countResults.rows;
-      client.query(sql)
+      client.query(sqlOrderBy)
         .then(results => {
           let animeResults = results.rows;
-          // console.log('return from dB: ', animeResults);   // REMOVE BEFORE FINISHING
-          // let animeCount = animeResults.length;
-          // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
         })
     })
@@ -160,7 +165,6 @@ function viewCollection(request, response) {
 }
 
 function editAnime(request, response){
-  // console.log(request.body);
   let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
   client.query(sqlCategory)
     .then(results =>{

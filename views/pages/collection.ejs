@@ -14,9 +14,14 @@
     <h2>There are <%= count %> items in your collection</h2>
 
     Order by
-    <section name="orderBy" id="orderBy">
+  
+    <select name="orderBy" id="orderBy">
+      <option name="id" value="id" id="id">Time added</option>
       <option name="myranking" value="myranking" id="myranking">My Randing</option>
-    </section>
+      <option name="category" value="category" id="category">Category</option>
+      <option name="title" value="title" id="title">Title</option>
+      <option name="animeType" value="animeType" id="animeType">Anime Type</option>
+    </select> <br> <br>
 
     <% animeArray.forEach( item => { %>   
       <form action="/edit" method="post">
@@ -43,4 +48,6 @@
        <% }) %>
   
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="app.js"></script>
 </html>
