@@ -2,14 +2,25 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/modules.css">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-  <%- include('./layout/header.ejs') %>
+  <section class="version1">
+<%- include('./layout/header.ejs') %>
+<div id="homepageText"> <h1> HERE ARE THE TOP UPCOMING ANIME!</h1></div>
+ 
+  <div id="homepage">
+  
   <% anime.forEach( show => { %>   
     <form action="/add" method="post">
-     <div><img src=" <%= show.image_url %>" /></div> 
-      <div>  <h2> title :<%= show.title %> </h2> </div>
+     <div id=homePageImage>
+       <img src=" <%= show.image_url %>" /></div> 
+      <div id="homePageTitle">  <h2> Title: <%= show.title %> </h2> </div>
       <!-- <div> <h4> type :<%= show.type %></h4> </div>
       <div > <h4>rated:<%= show.rated %></h4> </div>
       <div > <h4>mal_id :<%= show.id %></h4> </div>
@@ -28,6 +39,17 @@
        <button id="searchbutton" type="submit" name="select">View Details</button>
      </form>
      <% }) %>
-
+    </div>
+    </section>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+      }
+      </script>
 </body>
 </html>

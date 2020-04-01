@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 
 
 app.post('/viewDetail', showDetail);
-app.post('/add',addAnime);
+// app.post('/add',addAnime);
 
 app.get('/search' , (request,response) => {
   response.render('pages/search.ejs')
@@ -80,12 +80,12 @@ app.get('/collection', (request, response) => {
   let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
   client.query(sqlCount)
     .then(countResults => {
-      console.log('dB row count: ', countResults.rows);   // REMOVE BEFORE FINISHING
+      console.log('dB row count: ', countResults.rows); // REMOVE BEFORE FINISHING
       let rowCount = countResults.rows;
       client.query(sql)
         .then(results => {
           let animeResults = results.rows;
-          console.log('return from dB: ', animeResults);   // REMOVE BEFORE FINISHING
+          console.log('return from dB: ', animeResults); // REMOVE BEFORE FINISHING
           // let animeCount = animeResults.length;
           // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
@@ -94,7 +94,7 @@ app.get('/collection', (request, response) => {
     .catch(error =>{
       Error(error, response);
     })
-  })
+})
 
 
 function showDetail(request, response){
@@ -109,42 +109,42 @@ function showDetail(request, response){
     })
 }
 
-function addAnime(request, response){
-  console.log('in addAnime');
+// function addAnime(request, response){
+//   console.log('in addAnime');
 
-  let { id, image_url, title, type, synopsis, rated, episodes, myRanking, comments, category} = request.body;
-  let sqlAdd = 'INSERT INTO myAnimap (mal_id, image_url, title, animeType, synopsis, rated, episodes, myRanking, comments, category) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id;';
-  let safeValues = [id, image_url,title,type,synopsis,rated,episodes,myRanking,comments,category]
+//   let { id, image_url, title, type, synopsis, rated, episodes, myRanking, comments, category} = request.body;
+//   let sqlAdd = 'INSERT INTO myAnimap (mal_id, image_url, title, animeType, synopsis, rated, episodes, myRanking, comments, category) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id;';
+//   let safeValues = [id, image_url,title,type,synopsis,rated,episodes,myRanking,comments,category]
 
-  client.query(sqlAdd,safeValues)
-    .then(results =>{
-      // TODO: try to return to results page or collection
-      // console.log('added to db)');
-      // console.log(results);
-      // response.redirect('back'); 
-      // let myScript = '<script>window.history.back();</script>'
-      // response.render(myScript);
-      //window.history.back();
-      // response.render('./home.ejs')
-      // response.render('./pages/search.ejs')
-      response.render('./pages//collection.ejs');
+//   client.query(sqlAdd,safeValues)
+//     .then(results =>{
+//       // TODO: try to return to results page or collection
+//       // console.log('added to db)');
+//       // console.log(results);
+//       // response.redirect('back');
+//       // let myScript = '<script>window.history.back();</script>'
+//       // response.render(myScript);
+//       //window.history.back();
+//       // response.render('./home.ejs')
+//       // response.render('./pages/search.ejs')
+//       response.render('./pages//collection.ejs');
 
-  
-    
-    })
 
-  // console.log(request.body);
-  // console.log('image_url',image_url );
-  // console.log('id', id);
-  // console.log('title', title);
-  // console.log('type',type );
-  // console.log('rated', rated);
-  // console.log('episodes', episodes);
-  // console.log('synopsis', synopsis);
-  // console.log('comments', comments);
-  // console.log('myRanking', myRanking);
-  // console.log('category', category);
-}
+
+//     })
+
+//   // console.log(request.body);
+//   // console.log('image_url',image_url );
+//   // console.log('id', id);
+//   // console.log('title', title);
+//   // console.log('type',type );
+//   // console.log('rated', rated);
+//   // console.log('episodes', episodes);
+//   // console.log('synopsis', synopsis);
+//   // console.log('comments', comments);
+//   // console.log('myRanking', myRanking);
+//   // console.log('category', category);
+// }
 
 
 // app.listen(PORT, () => console.log(`Listening on port ${PORT}`))

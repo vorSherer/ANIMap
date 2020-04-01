@@ -1,0 +1,64 @@
+.version1 {
+  height:100%;
+  background-image: url("https://images2.alphacoders.com/564/564835.jpg" ); 
+  /* background-position-x: rem; */
+  /* background-repeat: no-repeat;
+background-size: cover; */
+   width:480px;
+  height:100%;
+  margin:auto;
+  align-self: center;
+  border: solid 3px lawngreen;
+ 
+ 
+}
+
+
+
+
+
+
+
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  position: relative;
+}
+
+.topnav #myLinks {
+  display: none;
+}
+
+.topnav a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+}
+
+.topnav a.icon {
+  background: rgb(255, 217, 3);
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+ 
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.678);
+  color: white;
+  height: 55px;
+  border-bottom: lawngreen solid 3px;
+}
+.active h1 {
+  font-size: 30pt;
+  margin-left:3rem;
+}
