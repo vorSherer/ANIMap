@@ -4,7 +4,7 @@
   background-position-x: -25rem;
   background-repeat: no-repeat;
 background-size: cover;
-  width:480px;
+  width:100%;
   height:100vh;
   margin:auto;
   align-self: center;
@@ -34,22 +34,35 @@ background-size: cover;
   background-color:lawngreen;
   border: solid 2px black;
 }
+#homepage {
 
+  background-image: url("https://images2.alphacoders.com/564/564835.jpg" ); 
+  /* background-position-x: rem; */
+  /* background-repeat: no-repeat;
+background-size: cover; */
+   width:100%;
+  height:100%;
+  margin:auto;
+  align-self: center;
+  border: solid 3px lawngreen;
+ 
+ 
+}
 
-#homepageText {
+.homepageText {
 /* border-bottom: solid 5px orange; */
-margin-top:2rem;
+/* margin-top:2rem; */
 margin-bottom:5rem;
 height:50px;
 }
-#homepageText h1 {
+.homepageText h1 {
   font-size: 30pt;
   margin-left:3rem;
   color: white;
   
 }
 
-#homePageImage {
+.homePageImage {
   border:  rgb(252, 214, 0)  6px;
   border-style: groove;
   margin-left:20%;
@@ -59,12 +72,12 @@ height:50px;
   margin-bottom: 1rem;
 }
 
-#homePageImage img {
+.homePageImage img {
   width:100%;
   height: 100%;
 }
 
-#homePageTitle {
+.homePageTitle {
   color:rgb(230, 216, 22);
   border: rgb(255, 238, 0) ridge 2px ;
   background-color: rgba(22, 22, 22, 0.644);
@@ -76,13 +89,13 @@ height:50px;
   overflow: hidden;
   margin-bottom: 1rem;
 }
-#homePageTitle h2 {
+.homePageTitle h2 {
 font-size: 20pt;
 
 }
 
 
-#homepage button {
+.searchbutton{
   margin-left:35%;
   width:130px;
   height:30px;
@@ -136,4 +149,49 @@ margin-bottom: 2rem;
   height:35px;
   font-size: 16pt;
 
+}
+
+
+
+
+#searchResultsPage {
+ 
+  background-image: url("https://images5.alphacoders.com/530/530476.jpg" ); 
+  /* background-position-x: rem;
+  background-repeat: no-repeat; */
+background-size: cover; 
+   width:100%;
+  height:100%;
+  margin:auto;
+  align-self: center;
+  /* border: solid 3px lawngreen; */
+}
+
+
+
+#detailsPage {
+ 
+  background-image: url("https://c4.wallpaperflare.com/wallpaper/132/983/716/fantasy-art-trees-chair-clouds-wallpaper-preview.jpg" ); 
+  /* background-position-x: rem;
+  background-repeat: no-repeat; */
+background-size: cover; 
+   width:100%;
+  height:100%;
+  margin:auto;
+  align-self: center;
+  /* border: solid 3px lawngreen; */
+}
+
+
+#synopsisdetails {
+  color:rgb(230, 216, 22);
+  border: rgb(255, 238, 0) ridge 2px ;
+  background-color: rgba(22, 22, 22, 0.644);
+  margin-left: 7%;
+  margin-right: 7%;
+  height:150px;
+  line-height:30px;
+  text-align: center;
+  overflow: scroll;
+  margin-bottom: 1rem;
 }

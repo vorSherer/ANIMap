@@ -4,31 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anime Details</title>
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/modules.css">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
   <script src="./app.js"></script>
 </head>
 <body>
-  <h1>Detail of  <%=anime.title%></h1>
+  <section id="detailsPage">
+  <div class="homepageText"><h1>DETAILS FOR  <%=anime.title%></h1></div>
 
 <form action="/add" method="post">
   <div><img src="<%= anime.image_url %>" /></div> 
-
-  <label> Id:</label> <br>
+<div class="details">
+  <label> Id:</label> 
   <label name="id"><%=anime.id%></label> <br><br>
+</div>
 
-  <label> Title:</label> <br>
-  <label name="title" id="title" value="<%= anime.title %>"><%=anime.title%></label> <br><br>
-  
-  <label> Type:</label> <br>
-  <label name="type"><%=anime.type%></label> <br><br>
-
-  <label> Rated:</label> <br>
-  <label name="rated"><%=anime.rated%></label> <br><br>
-
-  <label> Episodes:</label> <br>
-  <label name="episodes"><%=anime.episodes%></label> <br><br>
-
-  <label> Synopsis:</label> <br>
+  <div class="details">
+    <label> Title:</label> 
+    <label name="title" id="title" value="<%= anime.title %>"><%=anime.title%></label> <br><br>
+  </div>
+ 
+  <div class="details">
+    <label> Type:</label> 
+    <label name="type"><%=anime.type%></label> <br><br>
+  </div>
+ 
+  <div class="details">
+    <label> Rated:</label> 
+    <label name="rated"><%=anime.rated%></label> <br><br>
+  </div>
+ 
+  <div class="details">
+    <label> Episodes:</label> 
+    <label name="episodes"><%=anime.episodes%></label> <br><br>
+  </div>
+ 
+  <div id="details">
+    <label> Synopsis:</label> 
   <label name="synopsis"><%=anime.synopsis%></label> <br><br>
+  </div>
+  
 
   <label> Comments:</label> <br>
   <textarea name="comments" id="comments" cols="100" rows="7"></textarea><br><br>
@@ -67,6 +85,6 @@
 
 </form>
 
-  
+</section>
 </body>
 </html>
