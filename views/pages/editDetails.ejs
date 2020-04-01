@@ -40,7 +40,7 @@
           <textarea name="comments" id="comments" cols="100" rows="7" value="<%=anime.comments%>"> <%=anime.comments%> </textarea><br><br>
         
           <label> My ranking:</label> <br> 
-          <select name="myRanking">
+          <select name="myranking">
             <%for (let i =10; i>0; i--) {%>
               <%if (i==anime.myranking) {%>
                 <option value="<%=i%>" name="<%=i%>" selected><%=i%></option>
