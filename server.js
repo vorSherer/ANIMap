@@ -53,7 +53,7 @@ function displayUpcoming(request, response){
       response.render('home.ejs', {anime : animeInfo})
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     });
 }
 
@@ -72,42 +72,19 @@ function showResults(request, response){
       response.render('pages/showResults.ejs', {anime : animeInfo})
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     });
 }
 
 function Anime(obj) {
-  this.mal_id = obj.mal_id; // TODO: decifde if this value es “id” or “mal_id”
-  this.image_url = obj.image_url;
-  this.title = obj.title;
-  this.type = obj.type;
-  this.synopsis = obj.synopsis;
-  this.rated = obj.rated;
-  this.episodes = obj.episodes;
+  this.mal_id = obj.mal_id ? obj.mal_id : 'No id provided.'; // TODO: decifde if this value es “id” or “mal_id”
+  this.image_url = obj.image_url ? obj.image_url : 'No image available.';
+  this.title = obj.title ? obj.title : 'No title provided.';
+  this.type = obj.type ? obj.type : 'No type provided.';
+  this.synopsis = obj.synopsis ? obj.synopsis : 'Synopsis returned empty.';
+  this.rated = obj.rated ? obj.rated : 'CAUTION: Not Rated!';
+  this.episodes = obj.episodes ? obj.episodes : 'Single film or no episode information.';
 }
-
-// iris: i don't know why we have this route duplicated. i'm going to comment to see id we need it
-// app.get('/collection', (request, response) => {
-  
-//   let sql = 'SELECT * FROM myANIMap;';
-//   let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
-//   client.query(sqlCount)
-//     .then(countResults => {
-//       console.log('dB row count: ', countResults.rows); // REMOVE BEFORE FINISHING
-//       let rowCount = countResults.rows;
-//       client.query(sql)
-//         .then(results => {
-//           let animeResults = results.rows;
-//           console.log('return from dB: ', animeResults); // REMOVE BEFORE FINISHING
-//           // let animeCount = animeResults.length;
-//           // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
-//           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
-//         })
-//     })
-//     .catch(error =>{
-//       Error(error, response);
-//     })
-// })
 
 
 function viewDetail(request, response){
@@ -118,7 +95,7 @@ function viewDetail(request, response){
       response.render('pages/viewDetails.ejs',({anime:request.body, myCategories:categories}));
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
@@ -131,7 +108,7 @@ function addAnime(request, response){
       viewCollection(request, response);
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
@@ -157,10 +134,11 @@ function viewCollection(request, response) {
         .then(results => {
           let animeResults = results.rows;
           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
+        }).catch(error =>{
+          errorHandler(error, response);
         })
-    })
-    .catch(error =>{
-      Error(error, response);
+    }).catch(error =>{
+      errorHandler(error, response);
     })
 }
 
@@ -172,7 +150,7 @@ function editAnime(request, response){
       response.render('pages/editDetails.ejs',({anime:request.body, myCategories:categories}));
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
@@ -180,14 +158,14 @@ function editAnime(request, response){
 function updateAnime(request,response){
   let {id, synopsis, comments, myRanking, category } = request.body;
 
-  let sqlUpd = 'UPDATE myANIMap SET synopsis=$1, comments=$2, myRanking=$3, category=$4 WHERE id=$5;';
+  let sqlUpd = `UPDATE myANIMap SET synopsis=$1, comments=$2, myRanking=$3, category=$4 WHERE id=$5;`;
   let safeValues = [synopsis, comments, myRanking, category, id];
   client.query(sqlUpd,safeValues)
     .then(results =>{
       viewCollection(request, response);
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
@@ -200,10 +178,16 @@ function deleteAnime(request, response){
       viewCollection(request, response);
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
+function errorHandler(error, response) {
+  response.status(500).send('Route not found');
+}
+
+app.get('*', (request, response) => response.status(404).send('This route does not exist'));
+app.get((error, req, res) => errorHandler(error, res));
 
 
 client.connect()
