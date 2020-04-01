@@ -53,7 +53,7 @@ function displayUpcoming(request, response){
       response.render('home.ejs', {anime : animeInfo})
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     });
 }
 
@@ -72,7 +72,7 @@ function showResults(request, response){
       response.render('pages/showResults.ejs', {anime : animeInfo})
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     });
 }
 
@@ -119,7 +119,7 @@ function viewDetail(request, response){
       response.render('pages/viewDetails.ejs',({anime:request.body, myCategories:categories}));
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
@@ -132,7 +132,7 @@ function addAnime(request, response){
       viewCollection(request, response);
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
@@ -153,10 +153,10 @@ function viewCollection(request, response) {
           // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
         }).catch(error =>{
-          Error(error, response);
+          errorHandler(error, response);
         })
     }).catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
@@ -169,7 +169,7 @@ function editAnime(request, response){
       response.render('pages/editDetails.ejs',({anime:request.body, myCategories:categories}));
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
@@ -177,14 +177,14 @@ function editAnime(request, response){
 function updateAnime(request,response){
   let {id, synopsis, comments, myRanking, category } = request.body;
 
-  let sqlUpd = 'UPDATE myANIMap SET synopsis=$1, comments=$2, myRanking=$3, category=$4 WHERE id=$5;';
+  let sqlUpd = `UPDATE myANIMap SET synopsis=$1, comments=$2, myRanking=$3, category=$4 WHERE id=$5;`;
   let safeValues = [synopsis, comments, myRanking, category, id];
   client.query(sqlUpd,safeValues)
     .then(results =>{
       viewCollection(request, response);
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
@@ -197,10 +197,16 @@ function deleteAnime(request, response){
       viewCollection(request, response);
     })
     .catch(error =>{
-      Error(error, response);
+      errorHandler(error, response);
     })
 }
 
+function errorHandler(error, response) {
+  response.status(500).send('Route not found');
+}
+
+app.get('*', (request, response) => response.status(404).send('This route does not exist'));
+app.get((error, req, res) => errorHandler(error, res));
 
 
 client.connect()
