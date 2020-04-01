@@ -22,6 +22,7 @@
   <label name="id"><%=anime.id%></label> <br><br>
 </div>
 
+
   <div class="details">
     <label> Title:</label> 
     <label name="title" id="title" value="<%= anime.title %>"><%=anime.title%></label> <br><br>
@@ -50,20 +51,24 @@
 
   <label> Comments:</label> <br>
   <textarea name="comments" id="comments" cols="100" rows="7"></textarea><br><br>
-  <!-- <input type="text" name="comments"> <br><br> -->
 
   <label> My ranking:</label> <br>
-  <input type="text" name="myRanking"> <br><br>
-  <!-- <select name="myRanking">
-    <option value="1" name="1">*</option>
-    <option value="2" name="2">**</option>
-    <option value="3" name="3">***</option>
-    <option value="4" name="4">****</option>
-    <option value="5" name="5">******</option>
+  <select name="myRanking">   
+    <option value="10" name="10" selected="selected">10</option>
+    <option value="9" name="9">9</option>
+    <option value="8" name="8">8</option>
+    <option value="7" name="7">7</option>
+    <option value="6" name="6">6</option>
+    <option value="5" name="5">5</option>
+    <option value="4" name="4">4</option>
+    <option value="3" name="3">3</option>
+    <option value="2" name="2">2</option>
+    <option value="1" name="1">1</option>
   </select>
-  <br><br> -->
+  <br><br>
+  
   <label> My category: </label> <br>
-  <input list="category" name="category">
+  <input list="category" name="category" required>
 
   <datalist id="category">
     <% myCategories.forEach(category => {%>      
@@ -75,8 +80,7 @@
 
 
   <input type="hidden" name="image_url" value="<%= anime.image_url %>">
-
-  <input type="hidden" name="id" value="<%= anime.id %>">
+  <input type="hidden" name="mal_id" value="<%= anime.mal_id %>">
   <input type="hidden" name="title" value="<%= anime.title %>">
   <input type="hidden" name="type" value="<%= anime.type %>">
   <input type="hidden" name="rated" value="<%= anime.rated %>">

@@ -7,6 +7,7 @@ const pg = require('pg');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const cors = require('cors');
+const methodOverride = require('method-override');
 
 // global variables
 const app = express();
@@ -15,7 +16,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());// allows everyone to access our information
 app.use(express.static('./public'));// serves our static files from public
 
-// app.use(methodOverride('_method')); // turn a post or get into a put or delete
+app.use(methodOverride('_method')); // turn a post or get into a put or delete
 // set up pg
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.error(err));
@@ -24,14 +25,23 @@ app.set('view engine', 'ejs');
 
 
 
-app.post('/viewDetail', showDetail);
-// app.post('/add',addAnime);
+app.get('/home' , displayUpcoming);
+app.get('/search' ,doSearch);
+app.post('/search/results', showResults);
+app.get('/collection', viewCollection);
+app.post('/viewDetail', viewDetail);
+app.post('/add',addAnime);
+app.post('/edit', editAnime);
+app.post('/update', updateAnime);
+app.post('/delete', deleteAnime);
 
-app.get('/search' , (request,response) => {
+
+function doSearch (request,response) {
   response.render('pages/search.ejs')
-})
+}
 
-app.get('/home' , (request,response) => {
+
+function displayUpcoming(request, response){
   let url = `https://api.jikan.moe/v3/search/anime?status=upcoming&limit=18`
   superagent(url)
     .then(results => {
@@ -45,9 +55,10 @@ app.get('/home' , (request,response) => {
     .catch(error =>{
       Error(error, response);
     });
-})
+}
 
-app.post('/search/results', (request,response) => {
+
+function showResults(request, response){
   let search = request.body.search
   // console.log('search', search)   // REMOVE BEFORE FINISHING
   let url = `https://api.jikan.moe/v3/search/anime?q=${search}&order_by=title&limit=15`
@@ -63,10 +74,10 @@ app.post('/search/results', (request,response) => {
     .catch(error =>{
       Error(error, response);
     });
-})
+}
 
 function Anime(obj) {
-  this.mal_id = obj.mal_id;
+  this.mal_id = obj.mal_id; // TODO: decifde if this value es “id” or “mal_id”
   this.image_url = obj.image_url;
   this.title = obj.title;
   this.type = obj.type;
@@ -97,8 +108,8 @@ app.get('/collection', (request, response) => {
 })
 
 
-function showDetail(request, response){
-  // console.log('now in showDetail()');
+function viewDetail(request, response){
+  // console.log('now in viewDetail()');
   // let {image_url, title, type, rated, id, episodes, synopsis} = request.body;
   // TODO: obtain id properly
   let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
@@ -107,47 +118,90 @@ function showDetail(request, response){
       let categories = results.rows;
       response.render('pages/viewDetails.ejs',({anime:request.body, myCategories:categories}));
     })
+    .catch(error =>{
+      Error(error, response);
+    })
 }
 
-// function addAnime(request, response){
-//   console.log('in addAnime');
-
-//   let { id, image_url, title, type, synopsis, rated, episodes, myRanking, comments, category} = request.body;
-//   let sqlAdd = 'INSERT INTO myAnimap (mal_id, image_url, title, animeType, synopsis, rated, episodes, myRanking, comments, category) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id;';
-//   let safeValues = [id, image_url,title,type,synopsis,rated,episodes,myRanking,comments,category]
-
-//   client.query(sqlAdd,safeValues)
-//     .then(results =>{
-//       // TODO: try to return to results page or collection
-//       // console.log('added to db)');
-//       // console.log(results);
-//       // response.redirect('back');
-//       // let myScript = '<script>window.history.back();</script>'
-//       // response.render(myScript);
-//       //window.history.back();
-//       // response.render('./home.ejs')
-//       // response.render('./pages/search.ejs')
-//       response.render('./pages//collection.ejs');
+function addAnime(request, response){
+  let { id, image_url, title, type, synopsis, rated, episodes, myRanking, comments, category} = request.body;
+  let sqlAdd = 'INSERT INTO myAnimap (mal_id, image_url, title, animeType, synopsis, rated, episodes, myRanking, comments, category) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id;';
+  let safeValues = [id, image_url,title,type,synopsis,rated,episodes,myRanking,comments,category];
+  client.query(sqlAdd,safeValues)
+    .then(results =>{
+      viewCollection(request, response);
+    })
+    .catch(error =>{
+      Error(error, response);
+    })
+}
 
 
 
-//     })
+function viewCollection(request, response) {
+  let sql = 'SELECT * FROM myANIMap;';
+  let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
+  client.query(sqlCount)
+    .then(countResults => {
+      // console.log('dB row count: ', countResults.rows);   // REMOVE BEFORE FINISHING
+      let rowCount = countResults.rows;
+      client.query(sql)
+        .then(results => {
+          let animeResults = results.rows;
+          // console.log('return from dB: ', animeResults);   // REMOVE BEFORE FINISHING
+          // let animeCount = animeResults.length;
+          // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
+          response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
+        })
+    })
+    .catch(error =>{
+      Error(error, response);
+    })
+}
 
-//   // console.log(request.body);
-//   // console.log('image_url',image_url );
-//   // console.log('id', id);
-//   // console.log('title', title);
-//   // console.log('type',type );
-//   // console.log('rated', rated);
-//   // console.log('episodes', episodes);
-//   // console.log('synopsis', synopsis);
-//   // console.log('comments', comments);
-//   // console.log('myRanking', myRanking);
-//   // console.log('category', category);
-// }
+function editAnime(request, response){
+  // console.log(request.body);
+  let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
+  client.query(sqlCategory)
+    .then(results =>{
+      let categories = results.rows;
+      response.render('pages/editDetails.ejs',({anime:request.body, myCategories:categories}));
+    })
+    .catch(error =>{
+      Error(error, response);
+    })
+}
 
 
-// app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+function updateAnime(request,response){
+  let {id, synopsis, comments, myRanking, category } = request.body;
+
+  let sqlUpd = 'UPDATE myANIMap SET synopsis=$1, comments=$2, myRanking=$3, category=$4 WHERE id=$5;';
+  let safeValues = [synopsis, comments, myRanking, category, id];
+  client.query(sqlUpd,safeValues)
+    .then(results =>{
+      viewCollection(request, response);
+    })
+    .catch(error =>{
+      Error(error, response);
+    })
+}
+
+function deleteAnime(request, response){
+  let {id} = request.body
+  let sql = 'DELETE FROM myANIMap WHERE id=$1;';
+  let safeValues = [id];
+  client.query(sql,safeValues)
+    .then(results =>{
+      viewCollection(request, response);
+    })
+    .catch(error =>{
+      Error(error, response);
+    })
+}
+
+
+
 client.connect()
   .then(() => {
     app.listen(PORT,() => console.log(`Listening on port ${PORT}`));
