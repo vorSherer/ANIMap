@@ -1,20 +1,20 @@
-DROP TABLE IF EXISTS myANIMap;
+DROP TABLE IF EXISTS myanimap;
 
-CREATE TABLE myANIMap (
+CREATE TABLE myanimap (
   id SERIAL PRIMARY KEY,
   mal_id VARCHAR(250),
   image_url TEXT,
   title TEXT,
-  animeType VARCHAR(250),
+  animetype VARCHAR(250),
   synopsis TEXT,
   rated VARCHAR(250),
   episodes VARCHAR(250),
-  myRanking SMALLINT,
+  myranking SMALLINT,
   comments TEXT,
   category VARCHAR(250)
 );
 
-INSERT INTO myANIMap (mal_id,image_url, title, animeType, synopsis, rated, episodes,myRanking ,comments,category) 
+INSERT INTO myanimap (mal_id,image_url, title, animetype, synopsis, rated, episodes,myranking ,comments,category) 
 VALUES (20, 
 'https://myanimelist.net/anime/20/Naruto'
 'Naruto',
@@ -27,7 +27,7 @@ VALUES (20,
 'Favotites'
 );
 
-INSERT INTO myANIMap (mal_id,image_url, title, animeType, synopsis, rated, episodes,myRanking ,comments,category) 
+INSERT INTO myanimap (mal_id,image_url, title, animetype, synopsis, rated, episodes,myranking ,comments,category) 
 VALUES (20, 
 '4134'
 'https://myanimelist.net/anime/4134/Naruto__Shippuuden_-_Shippuu_Konoha_Gakuen_Den',
@@ -41,7 +41,7 @@ VALUES (20,
 'Favorites'
 );
 
-INSERT INTO myANIMap (mal_id,image_url, title, animeType, synopsis, rated, episodes,myRanking ,comments,category,category) 
+INSERT INTO myanimap (mal_id,image_url, title, animetype, synopsis, rated, episodes,myranking ,comments,category) 
 VALUES (20, 
 '1527'
 'https://cdn.myanimelist.net/images/anime/7/21319.jpg?s=8f46bd430f4df48caee33c2aee630d84',
@@ -55,4 +55,4 @@ VALUES (20,
 'To watch again'
 );
 
-SELECT * FROM myANIMap;
+SELECT * FROM myanimap;

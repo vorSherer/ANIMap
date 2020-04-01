@@ -88,7 +88,7 @@ function Anime(obj) {
 
 
 function viewDetail(request, response){
-  let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
+  let sqlCategory = 'SELECT DISTINCT category FROM myanimap;';
   client.query(sqlCategory)
     .then(results =>{
       let categories = results.rows;
@@ -100,9 +100,9 @@ function viewDetail(request, response){
 }
 
 function addAnime(request, response){
-  let { id, image_url, title, type, synopsis, rated, episodes, myRanking, comments, category} = request.body;
-  let sqlAdd = 'INSERT INTO myAnimap (mal_id, image_url, title, animeType, synopsis, rated, episodes, myRanking, comments, category) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id;';
-  let safeValues = [id, image_url,title,type,synopsis,rated,episodes,myRanking,comments,category];
+  let { id, image_url, title, type, synopsis, rated, episodes, myranking, comments, category} = request.body;
+  let sqlAdd = 'INSERT INTO myanimap (mal_id, image_url, title, animetype, synopsis, rated, episodes, myranking, comments, category) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id;';
+  let safeValues = [id, image_url,title,type,synopsis,rated,episodes,myranking,comments,category];
   client.query(sqlAdd,safeValues)
     .then(results =>{
       viewCollection(request, response);
@@ -119,14 +119,14 @@ function viewCollection(request, response) {
   let sqlOrderBy = '';
   console.log('orderBy',orderBy);
   if (orderBy !== undefined) {
-    sqlOrderBy = 'SELECT * FROM myANIMap ORDER BY ' + orderBy + ';';
+    sqlOrderBy = 'SELECT * FROM myanimap ORDER BY ' + orderBy + ';';
   }
   else
   {
-    sqlOrderBy = 'SELECT * FROM myANIMap;';
+    sqlOrderBy = 'SELECT * FROM myanimap;';
   }
 
-  let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
+  let sqlCount = 'SELECT COUNT(id) FROM myanimap;';
   client.query(sqlCount)
     .then(countResults => {
       let rowCount = countResults.rows;
@@ -143,7 +143,7 @@ function viewCollection(request, response) {
 }
 
 function editAnime(request, response){
-  let sqlCategory = 'SELECT DISTINCT category FROM myANIMap;';
+  let sqlCategory = 'SELECT DISTINCT category FROM myanimap;';
   client.query(sqlCategory)
     .then(results =>{
       let categories = results.rows;
@@ -156,10 +156,10 @@ function editAnime(request, response){
 
 
 function updateAnime(request,response){
-  let {id, synopsis, comments, myRanking, category } = request.body;
+  let {id, synopsis, comments, myranking, category } = request.body;
 
-  let sqlUpd = `UPDATE myANIMap SET synopsis=$1, comments=$2, myRanking=$3, category=$4 WHERE id=$5;`;
-  let safeValues = [synopsis, comments, myRanking, category, id];
+  let sqlUpd = `UPDATE myanimap SET synopsis=$1, comments=$2, myranking=$3, category=$4 WHERE id=$5;`;
+  let safeValues = [synopsis, comments, myranking, category, id];
   client.query(sqlUpd,safeValues)
     .then(results =>{
       viewCollection(request, response);
@@ -171,7 +171,7 @@ function updateAnime(request,response){
 
 function deleteAnime(request, response){
   let {id} = request.body
-  let sql = 'DELETE FROM myANIMap WHERE id=$1;';
+  let sql = 'DELETE FROM myanimap WHERE id=$1;';
   let safeValues = [id];
   client.query(sql,safeValues)
     .then(results =>{
