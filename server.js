@@ -24,6 +24,7 @@ app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 
 
+
 app.get('/home' , displayUpcoming);
 app.get('/search' ,doSearch);
 app.post('/search/results', showResults);
@@ -33,14 +34,6 @@ app.post('/add',addAnime);
 app.post('/edit', editAnime);
 app.post('/update', updateAnime);
 app.post('/delete', deleteAnime);
-
-
-
-// app.get('/edit/:id', editAnime);
-// // edit?id=9
-// function editAnime(request, response){
-//   console.log('in editAnime');
-// }
 
 
 function doSearch (request,response) {
@@ -98,12 +91,12 @@ app.get('/collection', (request, response) => {
   let sqlCount = 'SELECT COUNT(id) FROM myANIMap;';
   client.query(sqlCount)
     .then(countResults => {
-      console.log('dB row count: ', countResults.rows);   // REMOVE BEFORE FINISHING
+      console.log('dB row count: ', countResults.rows); // REMOVE BEFORE FINISHING
       let rowCount = countResults.rows;
       client.query(sql)
         .then(results => {
           let animeResults = results.rows;
-          console.log('return from dB: ', animeResults);   // REMOVE BEFORE FINISHING
+          console.log('return from dB: ', animeResults); // REMOVE BEFORE FINISHING
           // let animeCount = animeResults.length;
           // console.log('count= ', animeCount);   // REMOVE BEFORE FINISHING
           response.render('pages/collection.ejs', ({animeArray: animeResults, count: rowCount[0].count}));
