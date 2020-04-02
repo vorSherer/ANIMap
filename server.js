@@ -43,7 +43,6 @@ function doSearch (request,response) {
 
 function displayUpcoming(request, response){
   let genre = request.query.genre;
-  console.log('genre',genre);
   let url = ``;
   if (genre !== undefined) {
     url = `https://api.jikan.moe/v3/search/anime?status=upcoming&limit=18&genre=${genre}`;
@@ -52,7 +51,6 @@ function displayUpcoming(request, response){
   {
     url = `https://api.jikan.moe/v3/search/anime?status=upcoming&limit=18`;
   }
-  console.log(url);
 
   superagent(url)
     .then(results => {
@@ -71,7 +69,6 @@ function displayUpcoming(request, response){
 
 function showResults(request, response){
   let search = request.body.search
-  // console.log('search', search)   // REMOVE BEFORE FINISHING
   let url = `https://api.jikan.moe/v3/search/anime?q=${search}&order_by=title&limit=15`
   superagent(url)
     .then(results => {
