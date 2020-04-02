@@ -78,7 +78,7 @@ function showResults(request, response){
 
 function Anime(obj) {
   this.mal_id = obj.mal_id ? obj.mal_id : 'No id provided.'; // TODO: decifde if this value es “id” or “mal_id”
-  this.image_url = obj.image_url ? obj.image_url : 'No image available.';
+  this.image_url = obj.image_url ? obj.image_url : 'https://via.placeholder.com/150';
   this.title = obj.title ? obj.title : 'No title provided.';
   this.type = obj.type ? obj.type : 'No type provided.';
   this.synopsis = obj.synopsis ? obj.synopsis : 'Synopsis returned empty.';
