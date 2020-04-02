@@ -4,43 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AniMap()</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/modules.css">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./app.js"></script>
   </head>
   <body>
-    <%- include('../layout/header.ejs') %>
-    <section class="sec2">
-      
-      <div class="header2"><h4>Edit Anime </h4></div>
-      <div >
-   
-        
+  
+    <section id="editPage">
+      <%- include('../layout/header.ejs') %>
+      <div class="pageText"><h1>Edit Anime </h1></div>
         <form action="/update" method="post">
-          <div><img src="<%= anime.image_url %>" /></div> 
-        
-          <label> Id:</label> <br>
+          <div id="outer">
+          <div id="inner2">
+          <div class="pageImage"><img src="<%= anime.image_url %>" /></div> 
+          </div>
+          <div id="inner">
+          <!-- <div class="details">
+          <label class="firstLabel"> Id:</label> 
           <label name="mal_id"><%=anime.id%></label> <br><br>
-        
-          <label> Title:</label> <br>
+        </div> -->
+          <div class="details">
+          <label class="firstLabel"> Title:</label> 
           <label name="title" id="title" value="<%= anime.title %>"><%=anime.title%></label> <br><br>
-          
-          <label> Type:</label> <br>
+        </div>
+          <div class="details">
+          <label class="firstLabel"> Type:</label> 
           <label name="type"><%=anime.type%></label> <br><br>
-        
-          <label> Rated:</label> <br>
+        </div>
+          <div class="details">
+          <label class="firstLabel"> Rated:</label> 
           <label name="rated"><%=anime.rated%></label> <br><br>
-        
-          <label> Episodes:</label> <br>
+        </div>
+          <div class="details">
+          <label class="firstLabel"> Episodes:</label>
           <label name="episodes"><%=anime.episodes%></label> <br><br>
-        
-          <label> Synopsis:</label> <br>
+        </div>
+      </div>
+    </div>
+        <div class="synopsisdetails">
+          <label class="firstLabel"> Synopsis:</label> <br>
           <textarea name="synopsis" id="synopsis" cols="100" rows="7" value="<%=anime.synopsis%>"> <%=anime.synopsis%> </textarea><br><br>
-        
-          <label> Comments:</label> <br>
+        </div>
+          <div class="synopsisdetails">
+          <label class="firstLabel"> Comments:</label> <br>
           <textarea name="comments" id="comments" cols="100" rows="7" value="<%=anime.comments%>"> <%=anime.comments%> </textarea><br><br>
-        
-          <label> My ranking:</label> <br> 
-          <select name="myranking">
+        </div>
+          <div id="r" class="details">
+          <label class="firstLabel"> My ranking:</label> 
+          <select class="rank" name="myranking">
             <%for (let i =10; i>0; i--) {%>
               <%if (i==anime.myranking) {%>
                 <option value="<%=i%>" name="<%=i%>" selected><%=i%></option>
@@ -50,20 +65,20 @@
                 <%}%>
             <%}%>
           </select>
-          
-          <br><br>
-          
-          <label> My category: </label> <br>
+        </div>
+     
+          <div id="c" class="details">
+          <label class="firstLabel"> My category: </label>
           <!-- <input list="category" name="category" value="<%=anime.category%>"> -->
-          <input type="text" list="category" id="category" name="category" value="<%=anime.category%>"/> 
+          <input  class="rank" type="text" list="category" id="category" name="category" value="<%=anime.category%>"/> 
           
           <datalist id="category">
             <% myCategories.forEach(category => {%>      
                 <option value ="<%=category.category%>" > <%=category.category%></option>
             <%})%> 
-          </datalist> <br><br>
-
-
+          </datalist> 
+        </div>
+        <div id="buttonblock">
           <button id="return" type="button" name="return" onclick="goBack()">Return</button>
 
           <button id="updateButton" type="submit" name="add">Update</button>
@@ -72,13 +87,14 @@
         
         </form>
 
-     
+
         <form action="/delete" method="POST">
           <input type="hidden" name="id" value="<%= anime.id %>" />
-          <button type="submit">Delete</button>
+          <button id="delete" type="submit">Delete</button>
         </form>
 
       </div>
+    </section>
       <script>
         function myFunction() {
           var x = document.getElementById("myLinks");

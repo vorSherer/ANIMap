@@ -18,12 +18,14 @@
     
 
   <%- include('../layout/header.ejs') %>
-  <div class="homepageText"><h1>THESE ARE THE RESULTS OF YOUR SEARCH</h1></div>
+  <div class="pageText"><h1>THESE ARE THE RESULTS OF YOUR SEARCH</h1></div>
+
+  <div class="pageBlock">
   <% anime.forEach( show => { %>   
     <form action="/viewDetail" method="post">
-      <div class=homePageImage>
+      <div class="pageImage">
         <img src=" <%= show.image_url %>" /></div> 
-       <div class="homePageTitle">  <h2> Title: <%= show.title %> </h2> </div>
+       <div class="details">  <h1> Title: <%= show.title %> </h1> </div>
       <!-- <div> <h4> type :<%= show.type %></h4> </div>
       <div > <h4>rated:<%= show.rated %></h4> </div>
       <div > <h4>mal_id :<%= show.mal_id %></h4> </div>
@@ -40,7 +42,7 @@
        <input type="hidden" name="episodes" value="<%= show.episodes%>" />
        <input type="hidden" name="synopsis" value="<%= show.synopsis %>" />
        
-       <button class="searchbutton" type="submit" name="select">View Details</button>
+       <button class="viewbutton" type="submit" name="select">View Details</button>
      </form>
      <% }) %>
     </div>
