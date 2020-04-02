@@ -1,3 +1,6 @@
+#aboutpage{
+  background-color: rgba(153, 100, 39, 0.815);
+}
 #welcomePage{
   background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700138782-1200x682.jpg" );
   background-position-x: -25rem;
@@ -23,11 +26,6 @@
   width:70%;
   height:30px; 
 }
-
-/* #homepage {
-  background-image: url("https://images2.alphacoders.com/564/564835.jpg" ); 
-  height:100%;
-} */
 
 #searchPage {
   background-image: url("http://eskipaper.com/images/night-sky-wallpaper-17.jpg" );
@@ -137,7 +135,18 @@ body{
   max-width: 100vw;
   font-size: 26pt;
 }
-
+#aboutBlock .pageImage{
+  margin-left: 35%;
+}
+#aboutBlock .details{
+  margin-left: 35%;
+  width:350px;
+}
+#aboutBlock .synopsisdetails{
+  margin-bottom: 3rem;
+  line-height: 70px;
+ 
+}
 #welcomePage{
  
   background-position-x: 0rem;
@@ -258,6 +267,14 @@ body{
   height: 65px;
   width:25rem;
 }
-
-
+#genre {
+  margin-left: 10rem;
+  height: 65px;
+  width:25rem;
+  
+}
+#filterGenre {
+  width:150px;
+  height:30px
+}
 }
