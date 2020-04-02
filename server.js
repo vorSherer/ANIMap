@@ -30,7 +30,7 @@ app.get('/search' ,doSearch);
 app.post('/search/results', showResults);
 app.get('/collection', viewCollection);
 app.post('/viewDetail', viewDetail);
-app.post('/add',addAnime);
+app.post('/add',checkForDuplicates);
 app.post('/edit', editAnime);
 app.post('/update', updateAnime);
 app.post('/delete', deleteAnime);
@@ -98,6 +98,27 @@ function viewDetail(request, response){
       errorHandler(error, response);
     })
 }
+
+
+function checkForDuplicates(request, response){
+  let {title} = request.body;
+  let sqlDuplicateCheck = 'SELECT COUNT(title) FROM myanimap WHERE title=$1;';
+  let safeValue = [title];
+  client.query(sqlDuplicateCheck, safeValue)
+    .then(results => {
+      console.log('sql return: ', results.rows);  // REMOVE BEFORE FINISHING
+      if( results.rows[0].count > 0 ) {
+        console.log('duplicate');  // REMOVE BEFORE FINISHING
+        response.status(408).send('duplicate');
+        // alert('You have already saved that title!');  // REMOVE BEFORE FINISHING
+      } else {
+        addAnime(request, response)
+      }
+    }).catch(error =>{
+      errorHandler(error, response);
+  });
+}
+
 
 function addAnime(request, response){
   let { id, image_url, title, type, synopsis, rated, episodes, myranking, comments, category} = request.body;

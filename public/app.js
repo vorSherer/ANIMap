@@ -16,3 +16,6 @@ $(document).ready(function() {
     }
   });
 });
+
+
+// if(response=="duplicate") alert('You have already saved that title!');
