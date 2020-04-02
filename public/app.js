@@ -21,4 +21,5 @@ $(document).ready(function() {
       window.location.href='/collection?orderBy='+$(this).val();
     }
   });
+
 })

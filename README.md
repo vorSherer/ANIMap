@@ -28,6 +28,8 @@ TRELLO Board for the project is at https://trello.com/b/b4OSz2Z7/animap
 2020-03-30 0730 (7:00 am) - Deployed Proof of Life successfully to Heroku.
 2020-03-30 2100 (9:00 pm) - Trello deck built, wireframe, dB Model and Domain Model images added, and SW requirements added to repo.
 2020-03-31 
+2020-04-01 - Hit MVP with a working, deployable app! Some styling remains, but otherwise Good to Go!
+
 
 ## Feature #: FEATURE DESCRIPTION
 ### Estimate of time needed to complete
@@ -42,7 +44,7 @@ NN min
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
-Shout-outs to Chance Harmon and Nicholas Carignan who provided technical assistance in getting this project running!
+Shout-outs to Chance Harmon, Lena Eivy and Nicholas Carignan who provided technical assistance in getting this project running!
 
 ## Assets
 Wireframes:
