@@ -4,31 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favorites</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/modules.css">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./app.js"></script>
 </head>
 <body>
     
-    <h1>My ANIMap()List</h1>
+<section id="collectionPage">
 
     <%- include('../layout/header.ejs') %>
 
-    <h2>There are <%= count %> items in your collection</h2>
+    <div class="pageText"><h1>There are <%= count %> items in your collection</h1></div>
 
-    Order by
-  
-    <select name="orderBy" id="orderBy">
-      <option> Select one</option>
+
+    <div id="order" class="details">
+      <label class="firstLabel">  Order by</label> 
+    <select  class="rank"name="orderBy" id="orderBy">
+      <option>Select one</option>
       <option name="id" value="id" id="id">Time added</option>
       <option name="myranking" value="myranking" id="myranking">My Ranking</option>
       <option name="category" value="category" id="category">Category</option>
       <option name="title" value="title" id="title">Title</option>
       <option name="animetype" value="animetype" id="animetype">Anime Type</option>
     </select> <br> <br>
-
+</div>
+    <div class="pageBlock">
+    <!-- <div class="details">
+      <label class="firstLabel">  Order by</label> 
+    <select  class="rank"name="orderBy" id="orderBy">
+      <option name="id" value="id" id="id">Time added</option>
+      <option name="myranking" value="myranking" id="myranking">My Randing</option>
+      <option name="category" value="category" id="category">Category</option>
+      <option name="title" value="title" id="title">Title</option>
+      <option name="animetype" value="animetype" id="animetype">Anime Type</option>
+    </select> <br> <br>
+</div> -->
     <% animeArray.forEach( item => { %>   
       <form action="/edit" method="post">
-       <div><img src=" <%= item.image_url %>" /></div> 
-        <div>  <h2> Anime: <%= item.title %> </h2> </div>
-        <div>  <h3>My ranking: <%= item.myranking %></h3></div>
+        <div class="pageImage"><img src=" <%= item.image_url %>" /></div> 
+       <div class="details">  <h1> Anime: <%= item.title %> </h1> </div>
+      <div class="details">  <h1>My ranking: <%= item.myranking %></h1></div>
   
         <input type="hidden" name="id" value="<%= item.id %>" />
         <input type="hidden" name="image_url" value="<%= item.image_url %>" />
@@ -42,10 +61,11 @@
         <input type="hidden" name="category" value="<%= item.category %>" />
         <input type="hidden" name="comments" value="<%= item.comments %>" />
 
-         <button id="searchbutton" type="submit" name="select">Edit Details</button>
+         <button id="editbutton" type="submit" name="select">Edit Details</button>
        </form>
        <% }) %>
-  
+    </div>
+      </section>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="app.js"></script>

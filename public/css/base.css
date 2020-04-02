@@ -3,7 +3,22 @@
   box-sizing: border-box;
 }
 body{
-  border: lawngreen solid 5px;
+ 
   max-width:480px;
   
+}
+
+section {
+  width:100%;
+  margin:auto;
+  align-self: center;
+  border: solid 3px rgb(252, 206, 0);
+
+}
+
+button {
+  background-color:  rgba(248, 2, 2, 0.801);;
+  border:solid 5px rgb(11, 12, 11);
+  color: white;
+  font-size: 16pt;
 }
