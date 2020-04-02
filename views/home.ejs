@@ -14,6 +14,17 @@
 <%- include('./layout/header.ejs') %>
 <div class="homepageText"> <h1> HERE ARE THE TOP UPCOMING ANIME!</h1></div>
  
+Genre:
+<select id="filterGenre" name="filterGenre">
+  <option> Select one</option>
+  <option id="2" name="2" value="2">Adventure</option>
+  <option id="4" name="4" value="4">Comedy</option>
+  <option id="7" name="7" value="7">Mystery</option>
+  <option id="41" name="41" value="41">Thriller</option>
+  <option id="37" name="37" value="37">Supernatural</option>
+</select>
+
+
   <div id="homepageBlock">
   
   <% anime.forEach( show => { %>   
@@ -53,5 +64,7 @@
         }
       }
       </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="app.js"></script>
 </body>
 </html>

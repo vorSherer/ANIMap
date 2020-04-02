@@ -7,7 +7,13 @@ function goBack() {
 }
 
 
-
+$(document).ready(function() {
+  $('#filterGenre').change(function(){
+    if ($(this).val()!='') {
+      window.location.href='/home?genre='+$(this).val();
+    }
+  });
+})
 
 $(document).ready(function() {
   $('#orderBy').change(function(){
@@ -15,4 +21,4 @@ $(document).ready(function() {
       window.location.href='/collection?orderBy='+$(this).val();
     }
   });
-});
+})

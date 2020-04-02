@@ -42,7 +42,18 @@ function doSearch (request,response) {
 
 
 function displayUpcoming(request, response){
-  let url = `https://api.jikan.moe/v3/search/anime?status=upcoming&limit=18`
+  let genre = request.query.genre;
+  console.log('genre',genre);
+  let url = ``;
+  if (genre !== undefined) {
+    url = `https://api.jikan.moe/v3/search/anime?status=upcoming&limit=18&genre=${genre}`;
+  }
+  else
+  {
+    url = `https://api.jikan.moe/v3/search/anime?status=upcoming&limit=18`;
+  }
+  console.log(url);
+
   superagent(url)
     .then(results => {
 
@@ -64,7 +75,6 @@ function showResults(request, response){
   let url = `https://api.jikan.moe/v3/search/anime?q=${search}&order_by=title&limit=15`
   superagent(url)
     .then(results => {
-      // console.log('anime results',results.body.results)   // REMOVE BEFORE FINISHING
       let anime = results.body.results;
       let animeInfo = anime.map(index => {
         return new Anime(index);
@@ -77,7 +87,7 @@ function showResults(request, response){
 }
 
 function Anime(obj) {
-  this.mal_id = obj.mal_id ? obj.mal_id : 'No id provided.'; // TODO: decifde if this value es “id” or “mal_id”
+  this.mal_id = obj.mal_id ? obj.mal_id : 'No id provided.';
   this.image_url = obj.image_url ? obj.image_url : 'No image available.';
   this.title = obj.title ? obj.title : 'No title provided.';
   this.type = obj.type ? obj.type : 'No type provided.';
@@ -117,13 +127,12 @@ function addAnime(request, response){
 function viewCollection(request, response) {
   let orderBy = request.query.orderBy;
   let sqlOrderBy = '';
-  console.log('orderBy',orderBy);
   if (orderBy !== undefined) {
     sqlOrderBy = 'SELECT * FROM myanimap ORDER BY ' + orderBy + ';';
   }
   else
   {
-    sqlOrderBy = 'SELECT * FROM myanimap;';
+    sqlOrderBy = 'select * from myanimap order by id desc;';
   }
 
   let sqlCount = 'SELECT COUNT(id) FROM myanimap;';
