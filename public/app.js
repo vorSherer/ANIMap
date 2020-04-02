@@ -32,4 +32,3 @@ if(typeof $ !== 'undefined'){
     });
   })
 }
-
