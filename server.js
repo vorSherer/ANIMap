@@ -24,7 +24,7 @@ app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 
 
-
+app.get('/about', aboutMe);
 app.get('/home' , displayUpcoming);
 app.get('/search' ,doSearch);
 app.post('/search/results', showResults);
@@ -35,6 +35,11 @@ app.post('/edit', editAnime);
 app.post('/update', updateAnime);
 app.post('/delete', deleteAnime);
 
+
+
+function aboutMe (request,response) {
+  response.render('./about.ejs')
+}
 
 function doSearch (request,response) {
   response.render('pages/search.ejs')
