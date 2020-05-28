@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/modules.css">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<section id="homepage">
+<%- include('./layout/header.ejs') %>
+<div class="pageText"> <h1> HERE ARE THE TOP UPCOMING ANIME!</h1></div>
+
+<div id="genre" class="details">
+  Genre: 
+<select id="filterGenre" name="filterGenre">
+  <option> Select one</option>
+  <option id="2" name="2" value="2">Adventure</option>
+  <option id="4" name="4" value="4">Comedy</option>
+  <option id="7" name="7" value="7">Mystery</option>
+  <option id="41" name="41" value="41">Thriller</option>
+  <option id="37" name="37" value="37">Supernatural</option>
+</select>
+</div>
+
+  <div class="pageBlock">
+  <% anime.forEach( show => { %>   
+    <form action="/viewDetail" method="post">
+
+     <div class="pageImage">
+       <img src=" <%= show.image_url %>" />
+      </div> 
+      <div class="details">  <h1><%= show.title %> </h1> </div>
+
+      <!-- <div> <h4> type :<%= show.type %></h4> </div>
+      <div > <h4>rated:<%= show.rated %></h4> </div>
+      <div > <h4>mal_id :<%= show.id %></h4> </div>
+      <div > <h4 > ep :<%= show.episodes %></h4> </div>
+      <div > 
+       <p>description : <%= show.synopsis %> </p> -->
+     <!-- </div> -->
+
+     <input type="hidden" name="image_url" value="<%= show.image_url %>" />
+     <input type="hidden" name="title" value="<%= show.title %>" />
+     <input type="hidden" name="type" value="<%= show.type %>" />
+      <input type="hidden" name="rated" value="<%= show.rated %>" />
+       <input type="hidden" name="id" value="<%= show.id %>" />
+       <input type="hidden" name="episodes" value="<%= show.episodes%>" />
+       <input type="hidden" name="synopsis" value="<%= show.synopsis %>" />
+       <button class="viewbutton" type="submit" name="select">View Details</button>
+     
+     </form>
+     <% }) %>
+  
+    </div>
+    </section>
+    <script>
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniMap()</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/modules.css">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./app.js"></script>
+  </head>
+  <body>
+  
+    <section id="editPage">
+      <%- include('../layout/header.ejs') %>
+      <div class="pageText"><h1>Edit Anime </h1></div>
+        <form action="/update" method="post">
+          <div id="outer">
+          <div id="inner2">
+          <div class="pageImage"><img src="<%= anime.image_url %>" /></div> 
+          </div>
+          <div id="inner">
+          <!-- <div class="details">
+          <label class="firstLabel"> Id:</label> 
+          <label name="mal_id"><%=anime.id%></label> <br><br>
+        </div> -->
+          <div class="details">
+          <label class="firstLabel"> Title:</label> 
+          <label name="title" id="title" value="<%= anime.title %>"><%=anime.title%></label> <br><br>
+        </div>
+          <div class="details">
+          <label class="firstLabel"> Type:</label> 
+          <label name="type"><%=anime.type%></label> <br><br>
+        </div>
+          <div class="details">
+          <label class="firstLabel"> Rated:</label> 
+          <label name="rated"><%=anime.rated%></label> <br><br>
+        </div>
+          <div class="details">
+          <label class="firstLabel"> Episodes:</label>
+          <label name="episodes"><%=anime.episodes%></label> <br><br>
+        </div>
+      </div>
+    </div>
+        <div class="synopsisdetails">
+          <label class="firstLabel"> Synopsis:</label> <br>
+          <textarea name="synopsis" id="synopsis" cols="100" rows="7" value="<%=anime.synopsis%>"> <%=anime.synopsis%> </textarea><br><br>
+        </div>
+          <div class="synopsisdetails">
+          <label class="firstLabel"> Comments:</label> <br>
+          <textarea name="comments" id="comments" cols="100" rows="7" value="<%=anime.comments%>"> <%=anime.comments%> </textarea><br><br>
+        </div>
+          <div id="r" class="details">
+          <label class="firstLabel"> My ranking:</label> 
+          <select class="rank" name="myranking">
+            <%for (let i =10; i>0; i--) {%>
+              <%if (i==anime.myranking) {%>
+                <option value="<%=i%>" name="<%=i%>" selected><%=i%></option>
+                <%}
+                else { %>
+                <option value="<%=i%>" name="<%=i%>"><%=i%></option>
+                <%}%>
+            <%}%>
+          </select>
+        </div>
+     
+          <div id="c" class="details">
+          <label class="firstLabel"> My category: </label>
+          <!-- <input list="category" name="category" value="<%=anime.category%>"> -->
+          <input  class="rank" type="text" list="category" id="category" name="category" value="<%=anime.category%>"/> 
+          
+          <datalist id="category">
+            <% myCategories.forEach(category => {%>      
+                <option value ="<%=category.category%>" > <%=category.category%></option>
+            <%})%> 
+          </datalist> 
+        </div>
+        <div id="buttonblock">
+          <button id="return" type="button" name="return" onclick="goBack()">Return</button>
+
+          <button id="updateButton" type="submit" name="add">Update</button>
+        
+          <input type="hidden" name="id" value="<%= anime.id %>" />
+        
+        </form>
+
+
+        <form action="/delete" method="POST">
+          <input type="hidden" name="id" value="<%= anime.id %>" />
+          <button id="delete" type="submit">Delete</button>
+        </form>
+
+      </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+            </body>
+        </html>
